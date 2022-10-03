@@ -1,0 +1,25 @@
+# General files formats
+*.opensdf
+*.sdf
+*.suo
+*.vcxproj.user
+*.log
+*.gitattributes
+*.dbmdl
+*.aps
+*.orig
+*.bin
+*.obj
+*.tlog
+*.pdb
+*.ilk
+*.pch
+*.res
+*.idb
+*.bin
+*.qm
+*_pb2*
+#visual studio folder
+.vs
+__pycache__
+/database/

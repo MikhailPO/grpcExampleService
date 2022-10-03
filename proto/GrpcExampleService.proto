@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+service GrpcExampleService {
+
+  rpc AddClient (ClientsInfoRequest) returns (addClientReply) {}
+
+  rpc GetClients (EmptyRequest) returns (GetClientsReply) {}
+
+  rpc GetClientByLogin (GetClientByLoginRequest) returns (GetClientsReply) {}
+}
+
+message ClientsInfoRequest {
+  repeated ClientInfoRequest clientsinfo = 1;
+}
+
+message ResponseOk {
+}
+
+enum ResponseErrorCode {
+  UNKNOWN = 0;
+  RESPONSE_BAD_REQUEST = 1;
+  RESPONSE_ERROR = 2;
+}
+message EmptyRequest {
+}
+message ClientInfoRequest {
+  string login = 1;
+  string email = 2;
+  string city = 3;
+}
+
+message ClientInfoResponse {
+  int32 id = 1;
+  string login = 2;
+  string email = 3;
+  string city = 4;
+}
+
+message ClientsInfoResponse {
+  repeated ClientInfoResponse clients = 1;
+}
+
+message GetClientByLoginRequest {
+  string login = 1;
+}
+
+message ResponseError { 
+  ResponseErrorCode response_error_code = 1;     
+  string message = 2;
+}
+
+message addClientReply {
+  oneof Response {
+    ResponseOk response_ok = 1;
+    ResponseError response_error = 2;     
+  }
+}
+
+message GetClientsReply {
+  oneof Response {
+    ClientsInfoResponse response_clients = 1;
+    ResponseError response_error = 2;
+  }
+}
