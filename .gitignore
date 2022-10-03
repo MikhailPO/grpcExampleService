@@ -18,8 +18,8 @@
 *.idb
 *.bin
 *.qm
+*.db
 *_pb2*
 #visual studio folder
 .vs
 __pycache__
-/database/
