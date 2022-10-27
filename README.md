@@ -11,7 +11,7 @@ gRPC's Python Example services.
 ____
   Execute following scripts:
   ```
-  generete_file.bat
+  generate_file.bat
   install.bat
   start.bat
   ```
@@ -20,7 +20,7 @@ ____
 ____
   Execute following scripts:
   ```
-  generete_file.sh
+  generate_file.sh
   install.sh
   start.sh
  ```
