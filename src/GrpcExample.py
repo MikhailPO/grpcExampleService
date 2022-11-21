@@ -3,7 +3,9 @@
 
 """gRPC's Python Example services."""
 import grpc
+from grpc_reflection.v1alpha import reflection
 import concurrent.futures as futures
+import GrpcExampleService_pb2
 import GrpcExampleService_pb2_grpc
 import DBHelper
 
@@ -25,6 +27,11 @@ def service():
   GrpcExampleService.dbhelper = DBHelper.DBHelper()
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
   GrpcExampleService_pb2_grpc.add_GrpcExampleServiceServicer_to_server(GrpcExampleService(), server)
+  SERVICE_NAMES = (
+    GrpcExampleService_pb2.DESCRIPTOR.services_by_name['GrpcExampleService'].full_name,
+    reflection.SERVICE_NAME,
+  )
+  reflection.enable_server_reflection(SERVICE_NAMES, server)
   server.add_insecure_port('[::]:50051')
   server.start()
   server.wait_for_termination()
