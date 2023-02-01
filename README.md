@@ -24,7 +24,7 @@ ____
   install.sh
   start.sh
  ```
-## Work and API
+## __Work and API__
 ____
 The database is created (on local PC) at the first start, to fill it with data, use the API ``` AddClient ``` 
 After the start, the message ``` GrpcExample service start ``` will be displayed in the console
