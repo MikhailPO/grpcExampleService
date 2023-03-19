@@ -7,6 +7,8 @@ service GrpcExampleService {
   rpc GetClients (EmptyRequest) returns (GetClientsReply) {}
 
   rpc GetClientByLogin (GetClientByLoginRequest) returns (GetClientsReply) {}
+
+  rpc ModifyClientById(ModifyClientByIdRequest) returns (ModifyClientByIdReply) {}
 }
 
 message ClientsInfoRequest {
@@ -60,5 +62,18 @@ message GetClientsReply {
   oneof Response {
     ClientsInfoResponse response_clients = 1;
     ResponseError response_error = 2;
+  }
+}
+
+message ModifyClientByIdRequest {
+  int32 id = 1;
+  optional string email = 3;
+  optional string city = 4;
+}
+
+message ModifyClientByIdReply {
+  oneof Response {
+    ResponseOk response_ok = 1;
+    ResponseError response_error = 2;     
   }
 }

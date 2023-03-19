@@ -10,6 +10,7 @@ sql_strings = {
     "add_client": 'INSERT INTO client(login, email, city) VALUES(\'{0}\',\'{1}\',\'{2}\')',
     "get_clients": "SELECT * FROM client",
     "get_client_by_login": "SELECT * FROM client WHERE login = \'{0}\'",
+    "modify_client_by_id": "UPDATE client SET email = coalesce({1}, email), city = coalesce({2}, city)  WHERE id = {0}",
 }
 
 class DBHelper:
@@ -97,6 +98,22 @@ class DBHelper:
             con.close()
             return GrpcExampleService_pb2.GetClientsReply(
                 response_clients=clientsResp) 
+        except Error as err:
+            GrpcExampleService_pb2.GetClientsReply(
+                    response_error=GrpcExampleService_pb2.ResponseError(
+                        response_error_code=GrpcExampleService_pb2.ResponseErrorCode.RESPONSE_ERROR, 
+                        message=str(err)))
+            
+    def modify_client_by_id(self, id, email, city):
+        try:
+            con = sqlite3.connect(sql_strings["database_addr"])
+            cursor = con.cursor()
+            result = cursor.execute(
+                sql_strings["modify_client_by_id"].format(id, email, city))
+            con.commit()
+            con.close()
+            return GrpcExampleService_pb2.ModifyClientByIdReply(
+                response_ok=GrpcExampleService_pb2.ResponseOk())
         except Error as err:
             GrpcExampleService_pb2.GetClientsReply(
                     response_error=GrpcExampleService_pb2.ResponseError(
